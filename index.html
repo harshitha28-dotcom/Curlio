@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HairBloom | Your Hair Care Guide</title>
+<style>
+:root {
+  --pink: #f7dce4;
+  --rose: #c65d7b;
+  --dark: #38252e;
+  --cream: #fffaf7;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+}
+header {
+  background: white;
+  padding: 15px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 12px #0000000a;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.logo { font-size: 23px; font-weight: bold; color: var(--rose); }
+nav { display: flex; gap: 15px; flex-wrap: wrap; }
+nav a { color: var(--dark); text-decoration: none; font-size: 14px; }
+button, .shop-link {
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 18px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+.primary { background: var(--rose); color: white; }
+.secondary { background: var(--pink); color: var(--dark); }
+button:hover, .shop-link:hover { opacity: .85; }
+.hero {
+  padding: 48px 6%;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 24px;
+  align-items: center;
+  background: linear-gradient(135deg,#fff1f4,#fffaf7);
+}
+.hero h1 { font-size: clamp(32px, 6vw, 52px); margin: 12px 0; }
+.hero p { line-height: 1.7; color: #705c65; }
+.eyebrow { color: var(--rose); font-weight: bold; letter-spacing: 2px; }
+.hero-art {
+  min-height: 230px;
+  border-radius: 28px;
+  background: linear-gradient(145deg,#f6d5df,#eab3c4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+}
+section { padding: 35px 5%; }
+.section-heading { text-align: center; margin-bottom: 24px; }
+.section-heading h2 { margin-bottom: 8px; }
+.section-heading p { color: #786771; line-height: 1.6; }
+.search-box {
+  display: flex;
+  gap: 8px;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+input, select {
+  min-width: 0;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #e6ccd5;
+  border-radius: 12px;
+  background: white;
+  color: var(--dark);
+  font-size: 15px;
+}
+.search-box input { flex: 1; }
+.filters {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.filter-btn { background: white; border: 1px solid #eed5dd; }
+.filter-btn.active { background: var(--rose); color: white; }
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #f0e1e5;
+  box-shadow: 0 5px 18px #4b25310a;
+}
+.product-art {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  background: #fae9ee;
+}
+.card-content { padding: 14px; }
+.card h3 { font-size: 16px; margin: 5px 0 9px; }
+.card p { font-size: 13px; line-height: 1.5; color: #76646c; }
+.price { font-weight: bold; color: var(--rose); font-size: 18px; }
+.shop-link {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--rose);
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  padding: 11px 14px;
+}
+.quiz-wrap {
+  max-width: 650px;
+  margin: auto;
+  padding: 24px;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 6px 25px #4b25310d;
+}
+.progress {
+  height: 7px;
+  background: #f5e6eb;
+  border-radius: 10px;
+  margin: 14px 0 24px;
+  overflow: hidden;
+}
+#progressFill {
+  width: 0;
+  height: 100%;
+  background: var(--rose);
+  transition: width .2s;
+}
+.question { font-size: 20px; font-weight: bold; line-height: 1.4; }
+.options { display: grid; gap: 10px; margin: 20px 0; }
+.option {
+  background: #fff9fb;
+  border: 1px solid #edd9e0;
+  text-align: left;
+  border-radius: 13px;
+  padding: 14px;
+  color: var(--dark);
+}
+.option.selected { background: var(--pink); border: 2px solid var(--rose); }
+.quiz-actions { display: flex; justify-content: space-between; gap: 10px; }
+.result {
+  background: #fff3f6;
+  padding: 20px;
+  border-radius: 15px;
+  line-height: 1.7;
+}
+.notice { color: #786771; font-size: 12px; line-height: 1.6; }
+.empty { text-align: center; grid-column: 1 / -1; padding: 25px; }
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  background: #f8e6eb;
+  line-height: 1.7;
+}
+[hidden] { display: none !important; }
+@media(max-width:650px) {
+  header { position: static; }
+  nav { width: 100%; justify-content: space-between; }
+  .hero { grid-template-columns: 1fr; padding: 32px 5%; }
+  .hero-art { min-height: 150px; font-size: 75px; }
+  .products { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+  .card-content { padding: 10px; }
+  .shop-link { font-size: 12px; padding: 10px; }
+  section { padding: 30px 4%; }
+}
+@media(max-width:370px) {
+  .products { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🌸 HairBloom</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#quiz">Hair Quiz</a>
+  </nav>
+  <button class="primary" onclick="goToQuiz()">Find My Routine</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div>
+    <div class="eyebrow">YOUR HAIR, YOUR ROUTINE</div>
+    <h1>Discover the care your hair deserves ✨</h1>
+    <p>Explore hair-care products, discover your hair concerns, and find a simple routine made for you.</p>
+    <button class="primary" onclick="goToQuiz()">Take the Hair Quiz →</button>
+    <button class="secondary" onclick="document.getElementById('products').scrollIntoView()">Explore Products</button>
+  </div>
+  <div class="hero-art" aria-label="Hair care illustration">🧴🌷</div>
+</section>
+
+<section id="products">
+  <div class="section-heading">
+    <h2>Find Your Hair-Care Products 🛍️</h2>
+    <p>Search products and filter them by your hair-care needs.</p>
+  </div>
+  <div class="search-box">
+    <input id="searchInput" type="search" placeholder="Search shampoo, conditioner..." aria-label="Search products">
+    <button class="primary" onclick="renderProducts()">Search</button>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="All">All</button>
+    <button class="filter-btn" data-filter="Dryness">Dryness</button>
+    <button class="filter-btn" data-filter="Frizz">Frizz</button>
+    <button class="filter-btn" data-filter="Hair Fall">Hair Fall</button>
+    <button class="filter-btn" data-filter="General Care">General Care</button>
+  </div>
+  <div class="products" id="productList"></div>
+  <p class="notice">Prices are illustrative estimates and may change. Product links open search results so you can check the current price, seller and ingredients before buying.</p>
+</section>
+
+<section id="quiz">
+  <div class="section-heading">
+    <h2>Let's Understand Your Hair 💗</h2>
+    <p>Answer five simple questions to get a suggested hair-care routine.</p>
+  </div>
+  <div class="quiz-wrap">
+    <div id="quizArea">
+      <div id="questionCount">Question 1 of 5</div>
+      <div class="progress"><div id="progressFill"></div></div>
+      <div class="question" id="questionText"></div>
+      <div class="options" id="options"></div>
+      <div class="quiz-actions">
+        <button class="secondary" id="backBtn" onclick="previousQuestion()">← Back</button>
+        <button class="primary" id="nextBtn" onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+    <div id="resultArea" hidden>
+      <h2>Your HairBloom Guide 🌷</h2>
+      <div class="result" id="resultText"></div>
+      <p><strong>Products to explore:</strong></p>
+      <div id="recommendedProducts"></div>
+      <button class="primary" onclick="resetQuiz()">Retake Quiz</button>
+      <button class="secondary" onclick="document.getElementById('products').scrollIntoView()">Browse All Products</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <strong>🌸 HairBloom</strong>
+  <p>Your journey to understanding your hair starts here.</p>
+  <p class="notice">Educational suggestions only. Results are not a medical diagnosis. Persistent hair loss or scalp irritation may need professional advice.</p>
+</footer>
+
+<script>
+const products = [
+  {name:"Dove Intense Repair Shampoo",brand:"Dove",price:230,concern:"Dryness",type:"Shampoo",emoji:"🧴",desc:"A shampoo option for a smoother-feeling hair routine.",search:"Dove Intense Repair Shampoo India"},
+  {name:"L'Oréal Paris Hyaluron Moisture Shampoo",brand:"L'Oreal Paris",price:250,concern:"Dryness",type:"Shampoo",emoji:"💧",desc:"A moisture-focused shampoo option.",search:"L'Oreal Paris Hyaluron Moisture Shampoo India"},
+  {name:"Tresemmé Keratin Smooth Conditioner",brand:"TRESemmé",price:220,concern:"Frizz",type:"Conditioner",emoji:"🫧",desc:"A conditioner option for managing frizz.",search:"Tresemme Keratin Smooth Conditioner India"},
+  {name:"Livon Hair Serum",brand:"Livon",price:180,concern:"Frizz",type:"Serum",emoji:"✨",desc:"A leave-in serum option for smoother-looking hair.",search:"Livon Hair Serum India"},
+  {name:"Dove Hair Mask",brand:"Dove",price:350,concern:"Dryness",type:"Hair Mask",emoji:"🌷",desc:"An occasional conditioning step for dry-feeling lengths.",search:"Dove hair mask India"},
+  {name:"L'Oréal Paris Extraordinary Oil Serum",brand:"L'Oreal Paris",price:500,concern:"Frizz",type:"Serum",emoji:"🌼",desc:"An oil-serum option for the lengths of your hair.",search:"L'Oreal Paris Extraordinary Oil Serum India"},
+  {name:"Mamaearth Onion Shampoo",brand:"Mamaearth",price:350,concern:"Hair Fall",type:"Shampoo",emoji:"🌿",desc:"A marketed hair-fall-care shampoo; results vary.",search:"Mamaearth Onion Shampoo India"},
+  {name:"Sunsilk Nourishing Soft & Smooth Shampoo",brand:"Sunsilk",price:190,concern:"General Care",type:"Shampoo",emoji:"🌸",desc:"An everyday shampoo option.",search:"Sunsilk Nourishing Soft and Smooth Shampoo India"},
+  {name:"Dove Daily Shine Conditioner",brand:"Dove",price:220,concern:"General Care",type:"Conditioner",emoji:"🧴",desc:"A basic conditioning option for hair lengths.",search:"Dove Daily Shine Conditioner India"}
+];
+
+let activeFilter = "All";
+let currentQuestion = 0;
+let answers = [];
+const questions = [
+  {q:"How would you describe your hair?",opts:["Straight","Wavy","Curly","Coily"]},
+  {q:"What is your biggest hair concern?",opts:["Dryness","Frizz","Hair Fall","No major concern"]},
+  {q:"How does your scalp usually feel?",opts:["Oily","Dry","Balanced","Not sure"]},
+  {q:"How often do you wash your hair?",opts:["Every day","2–3 times a week","Once a week","It varies"]},
+  {q:"What would you most like to improve?",opts:["Softness and moisture","Smoother hair","A simple everyday routine","Understanding hair fall"]}
+];
+
+function goToQuiz() {
+  document.getElementById("quiz").scrollIntoView({behavior:"smooth"});
+}
+
+function renderProducts() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const list = document.getElementById("productList");
+  const filtered = products.filter(p => {
+    const matchesQuery = (p.name+" "+p.brand+" "+p.type+" "+p.concern+" "+p.desc).toLowerCase().includes(query);
+    const matchesFilter = activeFilter === "All" || p.concern === activeFilter;
+    return matchesQuery && matchesFilter;
+  });
+  list.innerHTML = "";
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">No matching products found. Try another search. <br><br><button class="secondary" onclick="clearSearch()">Clear Search</button></div>';
+    return;
+  }
+  filtered.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "card";
+    const art = document.createElement("div");
+    art.className = "product-art";
+    art.textContent = p.emoji;
+    const content = document.createElement("div");
+    content.className = "card-content";
+    const title = document.createElement("h3");
+    title.textContent = p.name;
+    const desc = document.createElement("p");
+    desc.textContent = p.desc;
+    const type = document.createElement("p");
+    type.textContent = p.type+" • "+p.concern;
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = "Est. ₹"+p.price;
+    const link = document.createElement("a");
+    link.className = "shop-link";
+    link.href = "https://www.google.com/search?tbm=shop&q="+encodeURIComponent(p.search);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Find Product ↗";
+    content.append(title,desc,type,price,link);
+    card.append(art,content);
+    list.appendChild(card);
+  });
+}
+
+function clearSearch() {
+  document.getElementById("searchInput").value = "";
+  activeFilter = "All";
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active",b.dataset.filter==="All"));
+  renderProducts();
+}
+
+document.getElementById("searchInput").addEventListener("input",renderProducts);
+document.getElementById("filters").addEventListener("click",function(e) {
+  const button = e.target.closest("button[data-filter]");
+  if (!button) return;
+  activeFilter = button.dataset.filter;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active",b===button));
+  renderProducts();
+});
+
+function renderQuestion() {
+  const q = questions[currentQuestion];
+  document.getElementById("questionCount").textContent = "Question "+(currentQuestion+1)+" of "+questions.length;
+  document.getElementById("progressFill").style.width = ((currentQuestion+1)/questions.length*100)+"%";
+  document.getElementById("questionText").textContent = q.q;
+  const options = document.getElementById("options");
+  options.innerHTML = "";
+  q.opts.forEach(answer => {
+    const button = document.createElement("button");
+    button.className = "option"+(answers[currentQuestion]===answer?" selected":"");
+    button.textContent = answer;
+    button.type = "button";
+    button.onclick = () => {
+      answers[currentQuestion] = answer;
+      renderQuestion();
+    };
+    options.appendChild(button);
+  });
+  document.getElementById("backBtn").disabled = currentQuestion===0;
+  document.getElementById("backBtn").style.opacity = currentQuestion===0?".45":"1";
+  document.getElementById("nextBtn").textContent = currentQuestion===questions.length-1?"See My Results →":"Next →";
+}
+
+function nextQuestion() {
+  if (!answers[currentQuestion]) {
+    alert("Please choose an answer before continuing.");
+    return;
+  }
+  if (currentQuestion < questions.length-1) {
+    currentQuestion++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function previousQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById("quizArea").hidden = true;
+  document.getElementById("resultArea").hidden = false;
+  const concern = answers[1];
+  let routine = "";
+  if (concern==="Dryness") {
+    routine = "<strong>Your focus: moisture 💧</strong><br>Try a gentle shampoo, conditioner after washing, and an occasional hair mask. Avoid very hot water and excessive heat styling.";
+  } else if (concern==="Frizz") {
+    routine = "<strong>Your focus: frizz care ✨</strong><br>Use conditioner on your lengths, detangle gently, and consider a small amount of leave-in serum if it suits your hair.";
+  } else if (concern==="Hair Fall") {
+    routine = "<strong>Your focus: gentle hair care 🌿</strong><br>Avoid tight hairstyles and rough brushing. Hair fall has many causes, so persistent or sudden hair loss should be assessed by a healthcare professional.";
+  } else {
+    routine = "<strong>Your focus: a simple routine 🌸</strong><br>Choose a shampoo that suits your scalp, condition your lengths, and adjust washing frequency to your needs.";
+  }
+  routine += "<br><br><strong>Your answers:</strong> "+answers.map((a,i)=>questions[i].q+" "+a).join(" • ");
+  document.getElementById("resultText").innerHTML = routine;
+  const target = concern==="No major concern" ? "General Care" : concern;
+  const recommended = products.filter(p=>p.concern===target).slice(0,3);
+  const area = document.getElementById("recommendedProducts");
+  area.innerHTML = "";
+  recommended.forEach(p => {
+    const item = document.createElement("p");
+    const link = document.createElement("a");
+    link.href = "https://www.google.com/search?tbm=shop&q="+encodeURIComponent(p.search);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = p.name+" — estimated ₹"+p.price+" ↗";
+    item.appendChild(link);
+    area.appendChild(item);
+  });
+  if (!recommended.length) area.textContent = "Explore the full product list for options.";
+  goToQuiz();
+}
+
+function resetQuiz() {
+  currentQuestion = 0;
+  answers = [];
+  document.getElementById("quizArea").hidden = false;
+  document.getElementById("resultArea").hidden = true;
+  renderQuestion();
+}
+
+renderProducts();
+renderQuestion();
+</script>
+</body>
+</html>
