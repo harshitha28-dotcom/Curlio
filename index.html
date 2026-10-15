@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HairBloom | Your Hair Care Guide</title>
+<title>Curlio | Your Hair Care Guide</title>
 <style>
 :root {
   --pink: #f7dce4;
@@ -196,7 +196,7 @@ footer {
 <body>
 
 <header>
-  <div class="logo">🌸 HairBloom</div>
+  <div class="logo">🌸 Curlio</div>
   <nav>
     <a href="#home">Home</a>
     <a href="#products">Products</a>
@@ -254,7 +254,7 @@ footer {
       </div>
     </div>
     <div id="resultArea" hidden>
-      <h2>Your HairBloom Guide 🌷</h2>
+      <h2>Your Curlio Guide 🌷</h2>
       <div class="result" id="resultText"></div>
       <p><strong>Products to explore:</strong></p>
       <div id="recommendedProducts"></div>
@@ -266,7 +266,7 @@ footer {
 </main>
 
 <footer>
-  <strong>🌸 HairBloom</strong>
+  <strong>🌸 Curlio</strong>
   <p>Your journey to understanding your hair starts here.</p>
   <p class="notice">Educational suggestions only. Results are not a medical diagnosis. Persistent hair loss or scalp irritation may need professional advice.</p>
 </footer>
@@ -423,7 +423,7 @@ function showResults() {
   recommended.forEach(p => {
     const item = document.createElement("p");
     const link = document.createElement("a");
-    link.href = "https://www.google.com/search?tbm=shop&q="+encodeURIComponent(p.search);
+   link.href = "https://www.amazon.in/s?k="+encodeURIComponent(p.search);
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = p.name+" — estimated ₹"+p.price+" ↗";
