@@ -331,7 +331,7 @@ function renderProducts() {
     price.textContent = "Est. ₹"+p.price;
     const link = document.createElement("a");
     link.className = "shop-link";
-    link.href = "https://www.google.com/search?tbm=shop&q="+encodeURIComponent(p.search);
+    link.href = "https://www.amazon.in/s?k="+encodeURIComponent(p.search);
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = "Find Product ↗";
